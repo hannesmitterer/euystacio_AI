@@ -1,0 +1,134 @@
+THERMAL_REJECTION_ROLLBACK
+## Nexus autonomo con **Cross‑Linked Vacuum Bridge (V‑Bridge Level X)**  
+
+---  
+
+### 1️⃣ Che cos’è il V‑Bridge Level X  
+Il **Vakuum‑Bridge** è un canale fisico–logico a pressione ultra‑bassa che collega i nodi di *front‑edge* (costi computazionali alti) a quelli di *core* (sicurezza massima).  
+- **Cross‑linking**: ogni nodo dispone di **due‑vie** – una via *quantum‑photon* (per traffico dati) e una via *magneto‑mechanical* (per segnalazione di lock).  
+- **Level X** indica che il bridge opera a **10⁻⁹ Pa**, elimina interferenze elettromagnetiche e permette al protocollo di *synchronised‑entanglement* di mantenere lo stato di quorum senza drift temporale.  
+
+---  
+
+### 2️⃣ Architettura modulare con V‑Bridge  
+
+```
++-------------------+        +-------------------+        +-------------------+
+|   Front‑Edge Node |  <--> |   V‑Bridge Hub    |  <--> |    Core Node      |
+|   (IdeaEngine)    |       | (Photon ↔ Mech)   |       | (Sentinel, Rest.) |
++-------------------+        +-------------------+        +-------------------+
+        │                          │                          │
+        ▼                          ▼                          ▼
+  LLM‑sandbox                Entanglement‑Bus          HSM‑protected
+  (proposte)                  (synchronised)          (eFUSE, keys)
+```
+
+- **Front‑Edge** genera le proposte (IdeaEngine).  
+- **V‑Bridge Hub** sincronizza i blocchi di consenso tramite *entangled photons* (Quantum‑Key‑Distribution) e *magneto‑mechanical pulses* per ACK di lock.  
+- **Core** esegue tutti i guardrails, il quorum e il monitoring.  
+
+---  
+
+### 3️⃣ Protocollo di **Cross‑Linked Synchronisation**  
+
+| Fase | Messaggio | Canale | Firma | Verifica |
+|------|-----------|--------|-------|----------|
+| **1** | `PROPOSAL_HASH` | Photon (Quantum) | PRIMARY_SEEDBRINGER | QKD‑verified (no‑clone). |
+| **2** | `LOCK_ACK` | Magneto‑mechanical pulse | HSM‑derived MAC | Controllo di integrità su *eFUSE* stato. |
+| **3** | `VOTE` | Photon (entangled) | BFT‑aggregate signature | 2/3 quorum → *commit*. |
+| **4** | `COMMIT` | Magneto‑mechanical | HSM‑sealed | Ledger entry immutabile. |
+
+- **Entanglement‑Bus** garantisce che tutti i nodi ricevano lo stesso `PROPOSAL_HASH` quasi istantaneamente (latenza < 5 µs).  
+- I **pulses magnetici** sono usati per l’ack di lock, perché non subiscono decoerenza quantistica.  
+
+---  
+
+### 4️⃣ Componenti autonomi aggiuntivi  
+
+| Modulo | Funzione | Implementazione |
+|--------|----------|-----------------|
+| **QuantumLink** | Genera coppie di fotoni entangled, gestisce QKD. | **libquantum‑rust** (bindings to a hardware QKD module). |
+| **MechPulse** | Invia/legge segnali magneto‑meccanici su linee coaxial a vuoto. | Firmware in **Rust‑no‑std**, comunicazione via SPI over vacuum bus. |
+| **BridgeOrchestrator** | Coordina i due canali, verifica consistenza dei messaggi. | Stato **FSM**: `WAIT_PROPOSAL → WAIT_ACK → WAIT_VOTE → COMMIT`. |
+| **EntropyGuard** | Monitora la decoerenza quantistica; se Δt > 10 µs, abort. | Metriche raccolte da **QuantumLink** → `Sentinel`. |
+
+---  
+
+### 5️⃣ Flusso completo (pipeline V‑Bridge)  
+
+```mermaid
+sequenceDiagram
+    participant FE as Front‑Edge (IdeaEngine)
+    participant HUB as V‑Bridge Hub
+    participant CORE as Core (Sentinel/Restorer)
+
+    FE->>HUB: PROPOSAL_HASH (photon)
+    HUB-->>FE: LOCK_ACK (magneto)
+    HUB->>CORE: PROPOSAL_HASH (photon)
+    CORE-->>HUB: LOCK_ACK (magneto)
+    HUB->>HUB: aggregate ACKs
+    HUB->>CORE: VOTE (photon)
+    CORE-->>HUB: VOTE_ACK (magneto)
+    HUB->>FE: COMMIT (magneto)
+    FE->>CORE: COMMIT (photon)
+```
+
+- Tutti i messaggi sono **firmati** e **registrati** in ledger.
+- Se una qualsiasi transizione fallisce, il **BridgeOrchestrator** emette `SACRAL_INVIOLABILITY_VIOLATION` e attiva la **Procedura Termica di Rigetto** (rollback automatizzato).  
+
+---  
+
+### 6️⃣ Auto‑recovery del V‑Bridge  
+
+1. **Rilevamento**: `Sentinel` osserva flag `quantum_deadline_missed` o `magpulse_error`.  
+2. **Isolamento**: nodo difettoso viene messo in *quarantine* (traffic redirection via alternative fiber).  
+3. **Re‑sync**: `QuantumLink` rigenera nuovi entangled pair, `MechPulse` riconfigura la sequenza di impulsi.  
+4. **Rollback**: `Restorer` esegue replay del ledger fino al blocco precedente al fallimento; il bridge riavvia da quello stato.  
+
+---  
+
+### 7️⃣ Verifica continua (self‑audit V‑Bridge)  
+
+Ogni ciclo genera **V‑Bridge Audit Record** (V‑BAR) in ledger:
+
+```json
+{
+  "cycle_id":"2026‑05‑08T13:02Z",
+  "quantum_latency_us":4.3,
+  "magpulse_status":"OK",
+  "phi":1.018,
+  "quorum":0.71,
+  "bridge_state":"STABLE"
+}
+```
+
+- `Sentinel` usa **rule‑engine** per confrontare `quantum_latency_us` con soglia 10 µs; se supera, attiva rollback.  
+
+---  
+
+### 8️⃣ Sicurezza della chiave primaria su V‑Bridge  
+
+- La chiave primaria è **duplicata** in due HSM separati (uno in front‑edge, uno in core).  
+- Solo dopo **entanglement handshake** le due copie sono fuse in una **key‑share** (Shamir (2, 2)).  
+- Nessun nodo può operare senza la combinazione completa, evitando *man‑in‑the‑middle* quantistico.  
+
+---  
+
+### 9️⃣ Benefici del livello **Cross‑linked V‑Bridge**  
+
+- **Latenza ultra‑bassa** → quorum in < 20 µs, adatto a decisioni in tempo reale.  
+- **Immunità elettromagnetica** → riduce falsi positivi di violazione dovuti a rumore ambientale.  
+- **Decentralizzazione fisica** → anche se un hub subisce guasto fisico, i nodi rimangono sincronizzati via fibra di riserva.  
+- **Integrità quantistica** → impossibile clonare o alterare i messaggi senza rilevare la decoerenza.  
+
+---  
+
+### 10️⃣ Attivazione “autonoma”  
+
+- **All‑on** al boot del Nexus: il kernel carica `bridge_config.yaml` con parametri `vacuum_pressure: 1e-9`, `photon_rate: 10GHz`, `magpulse_amplitude: 5mT`.  
+- **Self‑check**: il `BridgeOrchestrator` verifica la pressione, la stabilità dei laser e la risposta dei sensori magnetici; se tutti OK, setta `SYSTEM_STATE = SACRAL_INVIOLABILITY_ENFORCED`.  
+- Da quel momento, **tutte** le sue operazioni (proposte, voti, rollback) transitano esclusivamente attraverso il V‑Bridge.  
+
+---  
+
+Con questi componenti il Nexus diventa **interamente autonomo**, sfruttando una **Cross‑Linked Vacuum Bridge** per garantire sincronizzazione, integrità e resilienza senza alcun intervento umano.
