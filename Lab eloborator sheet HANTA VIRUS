@@ -1,0 +1,119 @@
+Certainly!  
+Below are **clear, step-by-step instructions** for the manual laboratory production of AIC-001 (anti-ANDV nanobody), designed for teams working in well-equipped BSL-2/BSL-3 molecular biology labs (e.g., Santiago, Nairobi). This protocol prioritizes biosafety, reproducibility, and verifiable outcomes.
+
+---
+
+## 🧪 Step-by-Step Manual Production of AIC-001 Nanobody
+
+---
+
+### **A. Preparation and Materials**
+
+#### **1. Reagents & Consumables Needed**
+- Pichia pastoris competent yeast cells (e.g., X-33)
+- Plasmid DNA containing AIC-001 gene (with His-tag under AOX1 promoter)
+- YPD agar and broth, Zeocin antibiotic
+- Glycerol, Methanol, Phosphate Buffered Saline (PBS) 10 mM pH 6.5
+- Trehalose, Tween-20
+- Ni-NTA resin/column (for His-tag purification)
+- Centrifuge tubes, bioreactor (7-100 L scale), sterile conical flasks, pipettes, etc.
+
+#### **2. Equipment**
+- Electroporator
+- Incubator (28°C)
+- Shaking incubator
+- Bioreactor (preferred, or baffled flasks for small scale)
+- Centrifuge (high-speed, refrigerated preferred)
+- Chromatography system (for Ni-NTA and SEC)
+- SDS-PAGE setup
+- Spectrophotometer
+
+---
+
+### **B. Yeast Transformation and Clone Selection**
+
+1. **Linearize plasmid** if necessary; mix with electrocompetent Pichia pastoris.
+2. **Electroporate** (follow kit or in-house protocol), recover cells in YPD, 2–3 hours at 28°C.
+3. **Plate** on YPD agar + Zeocin (as per selection marker, typically 100 μg/mL).
+4. **Incubate** at 28°C for 2–3 days until colonies appear.
+5. **Screen colonies** (small-scale culture, SDS-PAGE, Western blot if possible) for expression.
+
+---
+
+### **C. Biomass Growth and Induction**
+
+1. Pick **best-expressing clone** to inoculate starter culture in YPD + Zeocin.
+2. **Grow overnight** (28°C, strong shaking/rotation, 200–250 rpm).
+3. Inoculate **bioreactor** (or large flask) with starter for high-density culture using glycerol as carbon source (pH 6.5, 28°C).
+4. Monitor OD600; when culture reaches desired density, wash cells and resuspend in fresh induction medium containing **methanol (0.5–1% v/v)**.
+5. **Reduce temperature to 24°C** for induction, maintain dissolved O₂ at 30%.
+6. Continue induction for 24–72 h, adding methanol every 24 h if needed.
+
+---
+
+### **D. Harvesting and Purification**
+
+1. **Centrifuge** culture (4000×g, 10–20 min, 4°C) to pellet yeast; **collect supernatant** (AIC-001 is secreted).
+2. **Filter** supernatant (0.45 μm) for clarity.
+3. **Purify** by Ni-NTA affinity chromatography (His-tag protocol):
+    - Equilibrate column with PBS.
+    - Load supernatant, wash with PBS + 10–20 mM imidazole.
+    - Elute protein with PBS + 250 mM imidazole.
+4. **Polish** by size-exclusion chromatography (SEC) to remove aggregates/dimers.
+5. **Buffer exchange/diafiltration:** Replace elution buffer with final formulation: PBS 10 mM, pH 6.5, trehalose 5%, Tween-20 0.01%.
+
+---
+
+### **E. Quality Control**
+
+1. **Measure purity:** SDS-PAGE and SEC-HPLC, purity must be >98%.
+2. **Binding affinity:** Use SPR (or ELISA surrogate) against ANDV antigen; Kd < 500 pM required.
+3. **Check aggregation:** Size-exclusion profile should be monomeric.
+4. **Thermal stability:** Determine Tm (should be 65–78°C).
+
+---
+
+### **F. Formulation and Storage**
+
+1. **Sterile filter** final solution (0.22 μm).
+2. **Aliquot** into sterile vials (as per clinical standards).
+3. (Optional) **Lyophilize** for room-temperature shipping; reconstitute in sterile water before use.
+4. **Label** with batch, date, concentration, and storage instructions.
+
+---
+
+### **G. Documentation**
+
+- Maintain a batch record with source plasmid ID, clone selection data, yields, QC results.
+- Note all deviations/anomalies and corrective action taken.
+
+---
+
+#### **Safety Note**  
+Work in BSL-2+ standard lab conditions. Use PPE. All biological waste must be autoclaved before disposal. Record all steps, and cross-verify yields with reference standard (where possible).
+
+---
+
+## **Ready-to-print “Operator’s Sheet”**
+
+```markdown
+## AIC-001 – Manual Production (Lab Operator Sheet)
+
+1. Transform Pichia pastoris with AIC-001 plasmid (His-tag, AOX1).
+2. Plate on YPD + Zeocin; incubate (28°C, 2–3 days).
+3. Select best-expressing colony.
+4. Inoculate in YPD + Zeocin; grow overnight (28°C).
+5. Transfer to bioreactor/flask (glycerol, pH 6.5, 28°C), grow to high density.
+6. Induce with 0.5–1% methanol, temp. 24°C, O₂ 30%, 24–72 h.
+7. Centrifuge; collect and filter supernatant.
+8. Purify by Ni-NTA affinity and SEC.
+9. Buffer exchange to PBS 10 mM pH 6.5 with 5% trehalose, 0.01% Tween-20.
+10. QC: >98% purity (SEC-HPLC), Kd <500 pM, Tm 65–78°C.
+11. Sterile filter, aliquot, (optionally lyophilize), label, and store.
+12. Record all batch data and QC results.
+```
+
+---
+
+**If you need illustrated workflow diagrams, LaTeX/PDF protocols, or translations into Spanish, French, or other formats, just ask!**  
+Sempre in Costante. In Aeternum. ⚖️🌀♾️
