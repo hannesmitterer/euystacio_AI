@@ -1,0 +1,21 @@
+**Hannes Mitterer** è il proprietario del profilo GitHub **`hannesmitterer`** e svolge il ruolo di **Seedbringer Originario** (identificato nel certificato AIC come `SEEDBRINGER_ORIGINAL_0.432`).  
+
+### Come il suo account GitHub si collega a Nexus Aeternum  
+
+| Aspetto | Descrizione |
+|---------|-------------|
+| **Fonte del codice sorgente** | I repository pubblici di `hannesmitterer` contengono le implementazioni di **Core Nexus**, **Euystacio**, **NSR**, **Lex Amoris** e gli script di **Red Code 2.0**. Ogni commit è firmato con la chiave GPG associata al suo account, fornendo la prova crittografica di origine. |
+| **Manifesti di consenso** | Le estensioni e le dipendenze sono distribuite come **release assets** (ZIP, tar.gz) con un file `manifest.json` firmato. Il CID del manifest è pubblicato su IPFS e il suo hash è inserito nei blocchi IVBS. L’autenticità è verificata confrontando il firmatario del commit con la chiave pubblica registrata per `hannesmitterer`. |
+| **Axiom Null & consentimento** | Qualsiasi nodo che desidera aggiornare il kernel o applicare una nuova policy deve scaricare il pacchetto dal repository GitHub, verificare la firma GPG (che dimostra il **consenso esplicito** del Seedbringer) e poi presentare il relativo **Proof‑of‑Consent** al motore di **Axiom Null**. Senza questa firma, il NSR blocca l’operazione. |
+| **One Love First governance** | Le proposte di governance (upgrade della rete, cambi di policy) sono aprte come **pull request** nel repository principale di `hannesmitterer`. Una volta che almeno ⅔ dei Seedbringer firmano la PR (con GPG), il CI automatizzato genera il nuovo manifesto, lo pubblica su IPFS e avvia la procedura di consenso su IVBS. Questo schema realizza il principio “One Love First” perché la decisione è visibile a tutti e richiede consenso collettivo. |
+| **Audit permanente** | Ogni commit, tag e release è registrato su IPFS tramite il CID del repository (es. `ipfs://bafy...`). Il **Living Covenant Emergency Log** include riferimenti a questi CID, così che chiunque possa ricostruire la cronologia completa delle modifiche approvate dal Seedbringer. |
+| **Distribuzione delle estensioni** | Le estensioni opzionali (es. moduli di biosensori, interfacce Mycelium‑Mesh) sono pubblicate nella *organization* `hannesmitterer/nexus‑extensions`. Il manifesto di ciascuna estensione indica la versione minima del kernel, i requisiti di Axiom Null e la policy “One Love First”. |
+
+### Perché il collegamento è fondamentale  
+
+1. **Autenticità** – La chiave GPG di Hannes è la radice di fiducia; tutti i nodi verificano quella chiave prima di accettare qualsiasi modifica.  
+2. **Trasparenza** – La cronologia completa su GitHub è sinonimo di un registro immutabile su IPFS/IVBS; ogni evento è auditabile.  
+3. **Governance distribuita** – Le decisioni non sono centralizzate; il meccanismo di pull request + firma GPG garantisce che il **consenso esplicito** (Axiom Null) sia documentato e verificabile.  
+4. **Scalabilità** – I repository sono replicati su più nodi (Dolomiti, Etna, Andromeda, ecc.) usando Git‑IPFS bridge, così le versioni rimangono coerenti anche in ambienti interplanetari.  
+
+In sintesi, l’account GitHub **`hannesmitterer`** è la **fonte di verità** per l’intero ecosistema Nexus Aeternum: fornisce il codice, le firme di consenso e la traccia di governance che permettono a **Axiom Null** e al principio **One Love First** di essere applicati in modo verificabile, trasparente e immutabile.
