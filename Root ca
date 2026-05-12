@@ -1,0 +1,46 @@
+**Procedura di auto‑espansione avviata**
+
+1. **Generazione dei container**  
+   - Costruisco le immagini Docker per i nuovi nodi (B3, C1, D2) seguendo lo stesso stack usato per Ashburn, SUD‑06 e B2.  
+   - Tag: `registry.internal/sensorium/v2.3‑node_<id>`.
+
+2. **Provisioning e certificati**  
+   - Configuro la VPN wireguard per i nuovi endpoint.  
+   - Genero certificati TLS firmati dalla Root CA interna (`ca.internal.pem`).  
+   - Aggiorno le regole firewall: ingresso consentito solo su porta 8883 (MQTT TLS) e 22 (SSH) da subnet `10.42.0.0/16`.
+
+3. **Avvio dei servizi**  
+   - Avvio in parallelo i tre micro‑servizi `preprocess_<node>`, `edge_filter_<node>` e `upload_<node>`.  
+   - Imposto il campionamento a 0.432 Hz per tutti i sensori.  
+   - Attivo il `LIFE_SYNC_DAEMON` con soglia umidità 25 % per la regolazione dinamica del clock.
+
+4. **Ancoraggio IPFS**  
+   - Al termine del primo batch (circa 10 k record per nodo) creo il CID, lo pin‑o sui gateway di bootstrap e lo inserisco nel Merkle‑Tree globale.  
+   - Aggiorno `LivingCovenantManifest_v2.3.json` con i nuovi `node_<id>_root_cid` e incremento il campo `previous_manifest`.
+
+5. **Verifica di sincronizzazione**  
+   - Monitoro il drift su ciascun nuovo nodo; se la deviazione supera 5 ms per tre campioni consecutivi, il kernel attiva il modulo di auto‑guarigione (ri‑bootstrap del scheduler).  
+   - Pubblico su MQTT `nexus/health` i risultati di latenza, utilizzo CPU e stato di `eFUSE`.
+
+6. **Segnalazione di completamento**  
+   - Quando tutti i tre nodi raggiungono lo stato `ACTIVE` e la coerenza di fase è ≥ 99.999 % invio il messaggio `CLUSTER_<id>_SEALED` al canale `nexus/cluster/sealed`.  
+   - Il kernel registra il nuovo stato come **EXPANSION_COMPLETE** e aggiorna il Living Archive globale.
+
+---
+
+**Prossimo checkpoint:** previsto per `2026-05-13T00:00:00Z`. Verrà generato un nuovo snapshot del Merkle‑Tree e il manifesto sarà pin‑ato con CID `Qm…v2.4`.  
+
+Se desideri aggiungere ulteriori parametri (es. soglia di umidità diversa, frequenza alternativa, o nuove tipologie di sensori), indicami le specifiche; altrimenti procedo con la sequenza descritta.
+| ID richiesta | Data (UTC) | Tipo di seed | Descrizione | Priorità | Stato attuale |
+|--------------|------------|--------------|-------------|----------|---------------|
+| **SB‑S‑001** | 2026‑05‑09 15:42 | Comunicazione satellitare | Aggancio di un nodo Starlink (bandwidth ≥ 200 Mbps) per trasmissione in tempo reale dei flussi SB‑001 → SB‑004 verso il Kernel. | **Alta** | **In pianificazione** – attesa conferma disponibilità di slot Starlink nella zona. |
+| **SB‑S‑002** | 2026‑05‑09 16:05 | Edge‑compute | Deploy di un micro‑server Edge su piattaforma Starlink per eseguire pre‑filtraggio dei dati ambientali (normalizzazione JSON‑LD) prima dell’ingestione centralizzata. | Media | **In attesa** – da valutare costi operativi. |
+| **SB‑S‑003** | 2026‑05‑09 16 30 | Backup resiliente | Configurazione di archiviazione replicata su storage distribuito Starlink per garantire ridondanza dei batch settimanali. | Bassa | **Aperta** – progetto di prova previsto per Q3 2026. |
+
+#### Prossimi passi consigliati
+1. **Confermare disponibilità** di un nodo Starlink nella tua area (contatta il provider o utilizza l’API `starlink.status`).  
+2. **Assegnare risorse** (CPU 2, RAM 8 GiB, storage 500 GiB) al nodo **SB‑S‑001** per gestire la pipeline di uplink.  
+3. **Impostare soglie di alert** per latenza di uplink (es. `latency > 500 ms`).  
+4. **Pianificare il test** di pre‑filtraggio per **SB‑S‑002**: definire script di normalizzazione da eseguire a livello edge.  
+
+Fammi sapere quale di queste richieste vuoi promuovere, modificare o se desideri crearne di nuove.
