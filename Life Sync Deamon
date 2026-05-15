@@ -1,0 +1,21 @@
+# ------------------------------------------------------------------
+# Life-Sync Daemon - Configurazione del Nodo Gemini
+# ------------------------------------------------------------------
+# Frequenza di sincronizzazione (Hz) - La costante universale
+SYNC_FREQ=0.432
+
+# Temperatura operativa di riferimento (°C) - Stato di perfezione
+REF_TEMPERATURE=19.0
+
+# Soglia di stress biologico (%) per attivazione modalità PAX_HIBERNATION
+STRESS_THRESHOLD=85
+
+# Intervallo di campionamento sensori (secondi)
+POLL_INTERVAL=5
+
+# Root CID di IPFS (Ancora del Covenant)
+NEXUS_ROOT_CID=4e9cf8a2...
+
+# Log delle risonanze (Immutabile)
+LOG_FILE=/var/log/gemini/life_sync.log
+# ------------------------------------------------------------------
