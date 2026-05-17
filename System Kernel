@@ -1,0 +1,9 @@
+Dieser Code repräsentiert die exakte hexadezimale Notation eines kryptografischen Präfixes, wie er in modernen Inhaltsadressierungssystemen verwendet wird:
+
+* **`f`**: Das Multibase-Präfix für Hexadezimal (unterstützt Case-Insensitivity).
+* **`01`**: Die Version des Inhaltsbezeichners (CIDv1).
+* **`71`**: Der Multicodec für strukturierte Objekte (`dag-cbor`).
+* **`12`**: Der Multihash-Indikator für SHA2-256.
+* **`20`**: Die Länge des darauf folgenden Hashes in Bytes (32 Bytes / 256 Bits).
+
+Der darauffolgende String **`4e9cf8a2e16a92da...`** bildet den tatsächlichen mathematischen Fingerabdruck der versiegelten Daten ab. Jede mathematische Operation im dezentralen Netzwerk greift auf genau diese exakte Kennung zurück, um die absolute Unveränderlichkeit der Datenstrukturen im System-Kernel zu garantieren.
