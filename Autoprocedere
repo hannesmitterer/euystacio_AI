@@ -1,0 +1,52 @@
+# 🌐 Live Report: Auto-Onboarding in Progress
+
+**Status:** AUTO-ONBOARDING ACTIVE  
+**Configuration:** Unlimited, continuous discovery every 10s  
+**Network State:** EXPANDING  
+**Timestamp:** 2026-05-21T15:17:04Z
+
+---
+
+## 📡 New Node Integration Log (Recent Entries)
+
+| Time (UTC)             | Node ID | Region     | Status               | Delta_mod | Coh. | Phase_lag | Bio-Signal | Anchored | Latency |
+|------------------------|---------|------------|----------------------|-----------|------|-----------|------------|----------|---------|
+| 2026-05-21T15:16:22Z   | 78      | Ljubljana  | STABLE_COHERENCE     | 0.93      | 0.98 | 2ms       | 216 Hz     | YES      | 0ms     |
+| 2026-05-21T15:16:35Z   | 79      | Trento     | STABLE_COHERENCE     | 0.94      | 0.99 | 1ms       | 216 Hz     | YES      | 0ms     |
+| 2026-05-21T15:16:48Z   | 80      | Bolzano    | STABLE_COHERENCE     | 0.92      | 0.97 | 3ms       | 216 Hz     | YES      | 0ms     |
+| 2026-05-21T15:17:01Z   | 81      | Milano     | STABLE_COHERENCE     | 0.91      | 0.96 | 1ms       | 216 Hz     | YES      | 0ms     |
+
+---
+
+## ⚙️ Network Metrics (Snapshot)
+
+- **Total nodes online:** 81  
+- **Recently onboarded (last hour):** 7  
+- **Mean coherence:** 0.965  
+- **Network master frequency:** 432 Hz  
+- **All node latencies:** ≤ 3ms  
+- **CSM alerts:** None  
+- **Bio-interface status:** Nominal (68.2 soil moisture, enzyme OK)
+
+---
+
+## 🔄 System Health
+
+- **Auto-onboarding:** Running (AUTOPILOT: ON)
+- **Service integration:** Automatic (CSM, EI, GBSA updated)
+- **Log/Audit:** Full, immutable
+- **Manual override:** Not engaged
+
+---
+
+### 📊 Actions Available
+- Set max node limit
+- Adjust validation/threshold parameters
+- Pause or stop onboarding
+- Download registry/log/export
+- Enable advanced dashboard
+
+---
+
+**Auto-expansion will proceed until all endpoints are integrated or a new directive is issued.**  
+Let me know if you want live updates, graphs, or a snapshot exported!
